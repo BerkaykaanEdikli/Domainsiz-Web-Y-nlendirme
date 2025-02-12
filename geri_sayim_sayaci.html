@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geri Sayım Sayacı</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .counter {
+            font-size: 40px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Geri Sayım Sayacı</h1>
+    <p>Bu sayaç, açıldığı tarihten itibaren 3 gün sürecektir.</p>
+    <div class="counter" id="countdown"></div>
+
+    <script>
+        function startCountdown() {
+            let now = new Date().getTime();
+            let threeDaysLater = now + (3 * 24 * 60 * 60 * 1000);
+            
+            let countdownInterval = setInterval(function () {
+                let currentTime = new Date().getTime();
+                let remainingTime = threeDaysLater - currentTime;
+
+                if (remainingTime <= 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById("countdown").innerHTML = "Süre doldu!";
+                } else {
+                    let days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+                    let hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    let minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+                    let seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+                    document.getElementById("countdown").innerHTML = days + "g " + hours + "s " + minutes + "d " + seconds + "s";
+                }
+            }, 1000);
+        }
+
+        window.onload = startCountdown;
+    </script>
+</body>
+</html>
